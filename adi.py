@@ -12,19 +12,19 @@ def bb(country,exchange,name,initialCapital,indicator,window,type,start,end,volu
     if country== "India":
               
         if exchange=="NSE":
-            path = f"D:/Stock/Stock/INDIA/NSE/{name}.csv"
+            path = f"Stock/INDIA/NSE/{name}.csv"
         elif exchange=="BSE":
-            path = f"D:/Stock/Stock/INDIA/BSE/{name}.csv"
+            path = f"Stock/INDIA/BSE/{name}.csv"
         price = " RS"
         symbol="₹ "
 
     elif country == "USA":
-        path = f"D:/Stock/Stock/US/{name}.csv"
+        path = f"Stock/US/{name}.csv"
         price=" Doller"
         symbol ="$ "
 
     elif country == "Japan":
-        path = f"D:/Stock/Stock/Japan/{name}.csv"
+        path = f"Stock/Japan/{name}.csv"
         price=" Yen"
         symbol="¥ "
     
@@ -277,8 +277,8 @@ def bb(country,exchange,name,initialCapital,indicator,window,type,start,end,volu
     else:
         return f"{path} didn't exist"
     
-min_date = datetime.date(2013, 1, 1)
-max_date = datetime.date(2023, 12, 31)
+min_date = datetime.date(2010-01-01)
+max_date = datetime.date(2024-11-11)
 
 st.title("Stock Analysis with Bollinger Bands")
 st.sidebar.header("Input Parameters")
@@ -303,7 +303,7 @@ else:
 
 initial_capital = st.sidebar.number_input("Enter initial capital", min_value=0, value=100000)
 indicator = st.sidebar.selectbox("Select indicator", ['Bollinger Band','RSI','VWAP'])
-window = st.sidebar.number_input("Enter window size", min_value=16, value=50)
+window = st.sidebar.number_input("Enter window size", min_value=16,max_value=100,value =50)
 risk_type = st.sidebar.selectbox("Select risk type", ["aggressive", "moderate", "low"])
 start_date = st.sidebar.date_input("Select start date",min_value=min_date, max_value=max_date)
 end_date = st.sidebar.date_input("Select end date",min_value=min_date, max_value=max_date)
