@@ -277,8 +277,8 @@ def bb(country,exchange,name,initialCapital,indicator,window,type,start,end,volu
     else:
         return f"{path} didn't exist"
     
-min_date = datetime.date(2010-01-01)
-max_date = datetime.date(2024-11-11)
+min_date = datetime.date(2010,01,01)
+max_date = datetime.date(2024,11,11)
 
 st.title("Stock Analysis with Bollinger Bands")
 st.sidebar.header("Input Parameters")
