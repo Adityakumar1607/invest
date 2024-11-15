@@ -3,5 +3,5 @@ numpy
 ta
 mplfinance
 streamlit
-datetime
+
 warnings
