@@ -83,12 +83,12 @@ def bb(country,exchange,name,initialCapital,indicator,window,type,start,end,volu
                         shearToBuy = capital//ClosePrise
                         capital -= shearToBuy*ClosePrise
                         holding += shearToBuy
-                        tradeHistory.append((row['Date'],"Buy",ClosePrise,holding))
+                        tradeHistory.append((row['Date'],"Buy",ClosePrise,holding,capital))
 
 
                     elif (ClosePrise > row['ubb']*sell) and holding >0:
                         capital += holding*ClosePrise
-                        tradeHistory.append((row['Date'],"Sell",ClosePrise,holding))
+                        tradeHistory.append((row['Date'],"Sell",ClosePrise,holding,capital))
                         holding = 0
 
                 portfolio = capital + (holding * data.iloc[-1]['Close'])
@@ -129,11 +129,14 @@ def bb(country,exchange,name,initialCapital,indicator,window,type,start,end,volu
                 st.pyplot(fig1)    
 
                 if hodl:
+                    remcap = tradeHistory[0][4]
                     p = tradeHistory[0][2]
                     d = data.iloc[-1]['Close']
                     h = tradeHistory[0][3]
                     v = (d*h)-(p*h)
-                    return f"{v} is the value if you hold the stock"
+                    cap= v+remcap
+                    np=cap-initialCapital
+                    return f"If you hold the stock of {name} without making any trade on the investment: {symbol}{initialCapital} you will get:{symbol} {cap:.2f} and your net position will be: {symbol}{np:.2f}"
                 
                 else:                    
                     st.pyplot(fig2)
@@ -166,11 +169,11 @@ def bb(country,exchange,name,initialCapital,indicator,window,type,start,end,volu
                         shares_to_buy = capital // ClosePrise
                         capital -= shares_to_buy * ClosePrise
                         holding += shares_to_buy
-                        trade_history.append((row['Date'], 'Buy', ClosePrise, holding))
+                        trade_history.append((row['Date'], 'Buy', ClosePrise, holding,capital))
                     
                     elif(row['RSI']>sell) and holding>0:
                         capital += holding * ClosePrise
-                        trade_history.append((row['Date'], 'Sell', ClosePrise, holding))
+                        trade_history.append((row['Date'], 'Sell', ClosePrise, holding,capital))
                         holding = 0
                     
 
@@ -210,11 +213,14 @@ def bb(country,exchange,name,initialCapital,indicator,window,type,start,end,volu
                 st.pyplot(fig1)              
                 
                 if hodl:
+                    remcap = tradeHistory[0][4]
                     p = tradeHistory[0][2]
                     d = data.iloc[-1]['Close']
                     h = tradeHistory[0][3]
                     v = (d*h)-(p*h)
-                    return f"{v} is the value if you hold the stock"
+                    cap= v+remcap
+                    np=cap-initialCapital
+                    return f"If you hold the stock of {name} without making any trade on the investment: {symbol}{initialCapital} you will get:{symbol} {cap:.2f} and your net position will be: {symbol}{np:.2f}"
                 
                 else:                    
                     st.pyplot(fig2)
@@ -248,11 +254,11 @@ def bb(country,exchange,name,initialCapital,indicator,window,type,start,end,volu
                         shares_to_buy = capital // ClosePrise
                         capital -= shares_to_buy * ClosePrise
                         holding += shares_to_buy
-                        trade_history.append((row['Date'], 'Buy', ClosePrise, holding))
+                        trade_history.append((row['Date'], 'Buy', ClosePrise, holding,capital))
                     
                     elif(ClosePrise>row['VWAP']*sell) and holding>0:
                         capital += holding * ClosePrise
-                        trade_history.append((row['Date'], 'Sell', ClosePrise, holding))
+                        trade_history.append((row['Date'], 'Sell', ClosePrise, holding,capital))
                         holding = 0
                     
 
@@ -292,11 +298,14 @@ def bb(country,exchange,name,initialCapital,indicator,window,type,start,end,volu
                 st.pyplot(fig1)              
 
                 if hodl:
+                    remcap = tradeHistory[0][4]
                     p = tradeHistory[0][2]
                     d = data.iloc[-1]['Close']
                     h = tradeHistory[0][3]
                     v = (d*h)-(p*h)
-                    return f"{v} is the value if you hold the stock"
+                    cap= v+remcap
+                    np=cap-initialCapital
+                    return f"If you hold the stock of {name} without making any trade on the investment: {symbol}{initialCapital} you will get:{symbol} {cap:.2f} and your net position will be: {symbol}{np:.2f}"
                 
                 else:                    
                     st.pyplot(fig2)
