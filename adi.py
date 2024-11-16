@@ -340,10 +340,11 @@ risk_type = st.sidebar.selectbox("Select risk type", ["aggressive", "moderate", 
 start_date = st.sidebar.date_input("Select start date",min_value=min_date, max_value=max_date)
 end_date = st.sidebar.date_input("Select end date",min_value=min_date, max_value=max_date)
 volume = st.sidebar.selectbox("Show volume?", ["True", "False"])
+hodl = st.sidebar.selectbox("Want to hodl?", ["True", "False"])
 
 # Trigger analysis
 if st.sidebar.button("Run Analysis"):
-    result = bb(country,exchange,stock_name, initial_capital, indicator, window, risk_type, start_date, end_date, volume)
+    result = bb(country,exchange,stock_name, initial_capital, indicator, window, risk_type, start_date, end_date, volume, hodl)
     st.write(result)   
 # name = input("Enter stock name: ")
 # capital = int(input("Enter initial capital: "))
