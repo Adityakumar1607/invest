@@ -367,7 +367,7 @@ if action == "Yes":
         result = bb(country,exchange,stock_name, initial_capital, indicator, window, risk_type, start_date, end_date, volume,hodl)
         st.write(result)   
 
-elif action == "no":
+elif action == "No":
     def portfolio(country,exchange,name, capital, starting, ending):
         if country== "India":
                   
@@ -439,7 +439,7 @@ elif action == "no":
     max_date = datetime.date(2024,11,11)
     st.title('Stock Analysis without Technical Indicators')
 
-       country = st.sidebar.selectbox("Select the country",["India","USA","Japan"])
+    country = st.sidebar.selectbox("Select the country",["India","USA","Japan"])
     if country == "India":
         
         exchange = st.sidebar.selectbox ("Sekect an exchange",["NSE","BSE"])
