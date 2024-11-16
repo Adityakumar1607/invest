@@ -461,7 +461,7 @@ elif action == "No":
 
     # Handle button click to run the analysis
     if st.button("Analyze Stock"):
-        result = portfolio(stock_name, capital, start_date, end_date)
+        result = portfolio(country,exchange,stock_name, capital, start_date, end_date)
         if result:
             st.write(result)
 
