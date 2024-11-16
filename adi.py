@@ -49,12 +49,12 @@ def bb(country,exchange,name,initialCapital,indicator,window,type,start,end,volu
             hodl = False
 
         if starting not in data['Date'].dt.normalize().values:
-            st.write("starting date is invalid")
-
+            print("starting date is invalid")
         elif ending not in data['Date'].dt.normalize().values:
-            st.write("ending date is invalid")
-
-        elif starting<ending:
+            print("ending date is invalid")
+        elif starting > ending:
+            print(f"{starting} date is greater than {ending} date")
+            
             if indicator == "Bollinger Band" :
                 data = data[(data['Date']>=starting)&(data['Date']<=ending)]
                 data['bb'] = ta.volatility.bollinger_mavg(data['Close'],window=window)
