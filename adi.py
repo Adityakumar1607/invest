@@ -433,7 +433,7 @@ elif action == "No":
                     portfolioValue = sharesCanBuy * sellClosePrice + remainingCapital
                     netPosition = portfolioValue - capital
 
-                    return (f"You can buy {sharesCanBuy} shares of {name} at {symbol}{buyClosePrice:.2f} each. Your portfolio value at the end will be {symbol}{portfolioValue:.2f} with a net position of {symbol}{netPosition:.2f}.")
+                    return f"You can buy {sharesCanBuy} shares of {name} at {symbol}{buyClosePrice:.2f} each. Your portfolio value at the end will be {symbol}{portfolioValue:.2f} with a net position of {symbol}{netPosition:.2f}."
                 else:
                     return f"Your initial capital ({symbol}{capital:.2f}) is lower than the stock's opening price ({symbol}{buyClosePrice:.2f}). Unable to buy any shares."
             else:
