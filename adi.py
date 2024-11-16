@@ -150,13 +150,13 @@ if action == "Yes":
                         v = (d*h)-(p*h)
                         cap= v+remcap
                         nk=cap-initialCapital
-                        return "If you hold the stock of {name} without making any trade on the investment: {symbol}{initialCapital} you will get:{symbol} {cap:.2f} and your net position will be: {symbol}{nk:.2f}".format(symbol, capital, symbol, buyClosePrice)
+                        return f"If you hold the stock of {name} without making any trade on the investment: {symbol}{initialCapital} you will get:{symbol} {cap:.2f} and your net position will be: {symbol}{nk:.2f}."
 
 
                     
                     else:                    
                         st.pyplot(fig2)
-                        return "The stock {name} with the initial capital: {symbol}{initialCapital} and the indicator: {indicator} the portfolio is :{symbol}{portfolio:.2f} and the net position is :{symbol}{netPosition:.2f}".format(symbol, capital, symbol, buyClosePrice)
+                        return f"The stock {name} with the initial capital: {symbol}{initialCapital} and the indicator: {indicator} the portfolio is :{symbol}{portfolio:.2f} and the net position is :{symbol}{netPosition:.2f}."
 
                 if indicator == "RSI" :
                     data = data[(data['Date']>=starting)&(data['Date']<=ending)]
@@ -236,13 +236,13 @@ if action == "Yes":
                         v = (d*h)-(p*h)
                         cap= v+remcap
                         nk=cap-initialCapital
-                        return "If you hold the stock of {name} without making any trade on the investment: {symbol}{initialCapital} you will get:{symbol} {cap:.2f} and your net position will be: {symbol}{nk:.2f}".format(symbol, capital, symbol, buyClosePrice)
+                        return f"If you hold the stock of {name} without making any trade on the investment: {symbol}{initialCapital} you will get:{symbol} {cap:.2f} and your net position will be: {symbol}{nk:.2f}"
 
         
                     
                     else:                    
                         st.pyplot(fig2)
-                        return "The stock {name} with the initial capital: {symbol}{initialCapital} and the indicator: {indicator} the portfolio is :{symbol}{portfolio:.2f} and the net position is :{symbol}{netPosition:.2f}".format(symbol, capital, symbol, buyClosePrice)
+                        return f"The stock {name} with the initial capital: {symbol}{initialCapital} and the indicator: {indicator} the portfolio is :{symbol}{portfolio:.2f} and the net position is :{symbol}{netPosition:.2f}"
 
 
                 if indicator=="VWAP":
@@ -323,13 +323,13 @@ if action == "Yes":
                         v = (d*h)-(p*h)
                         cap= v+remcap
                         nk=cap-initialCapital
-                        return "If you hold the stock of {name} without making any trade on the investment: {symbol}{initialCapital} you will get:{symbol} {cap:.2f} and your net position will be: {symbol}{nk:.2f}".format(symbol, capital, symbol, buyClosePrice)
+                        return f"If you hold the stock of {name} without making any trade on the investment: {symbol}{initialCapital} you will get:{symbol} {cap:.2f} and your net position will be: {symbol}{nk:.2f}"
 
 
                     
                     else:                    
                         st.pyplot(fig2)
-                        return "The stock {name} with the initial capital: {symbol}{initialCapital} and the indicator: {indicator} the portfolio is :{symbol}{portfolio:.2f} and the net position is :{symbol}{netPosition:.2f}".format(symbol, capital, symbol, buyClosePrice)
+                        return f"The stock {name} with the initial capital: {symbol}{initialCapital} and the indicator: {indicator} the portfolio is :{symbol}{portfolio:.2f} and the net position is :{symbol}{netPosition:.2f}"
 
         
             elif starting>ending:
@@ -433,7 +433,7 @@ elif action == "No":
                     portfolioValue = sharesCanBuy * sellClosePrice + remainingCapital
                     netPosition = portfolioValue - capital
 
-                    return f"You can buy {sharesCanBuy} shares of {name} at ({/symbol}{buyClosePrice:.2f}) each. Your portfolio value at the end will be ({symbol}{portfolioValue:.2f}) with a net position of ({symbol}{netPosition:.2f})."
+                    return f"You can buy {sharesCanBuy} shares of {name} at ({symbol}{buyClosePrice:.2f}) each. Your portfolio value at the end will be ({symbol}{portfolioValue:.2f}) with a net position of ({symbol}{netPosition:.2f})."
                 else:
                     return f"Your initial capital ({symbol}{capital:.2f}) is lower than the stock's opening price ({symbol}{buyClosePrice:.2f}). Unable to buy any shares."
             else:
