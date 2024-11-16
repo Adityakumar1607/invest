@@ -22,26 +22,27 @@ if action == "Yes":
 
     def bb(country,exchange,name,initialCapital,indicator,window,type,start,end,volume,hodl):
         if country== "India":
-                    
-                if exchange=="NSE":
-                    path = f"D:/Stock/Stock/INDIA/NSE/{name}.csv"
-                elif exchange=="BSE":
-                    path = f"D:/Stock/Stock/INDIA/BSE/{name}.csv"
-                price = " RS"
-                symbol="₹ "
-
+                  
+            if exchange=="NSE":
+                path = f"Stock/INDIA/NSE/{name}.csv"
+            elif exchange=="BSE":
+                path = f"Stock/INDIA/BSE/{name}.csv"
+            price = " RS"
+            symbol="₹ "
+    
         elif country == "USA":
-            path = f"D:/Stock/Stock/US/{name}.csv"
+            path = f"Stock/US/{name}.csv"
             price=" Doller"
             symbol ="$ "
-
+    
         elif country == "Japan":
-            path = f"D:/Stock/Stock/Japan/{name}.csv"
+            path = f"Stock/Japan/{name}.csv"
             price=" Yen"
             symbol="¥ "
         
         else:
             print("Select a valid country")
+
 
         if os.path.exists(path):
             data =pd.read_csv(path)
@@ -379,21 +380,21 @@ if action == "Yes":
 elif action == "No":
     def portfolio(country,exchange,name, capital, starting, ending):
         if country== "India":
-                    
-                if exchange=="NSE":
-                    path = f"D:/Stock/Stock/INDIA/NSE/{name}.csv"
-                elif exchange=="BSE":
-                    path = f"D:/Stock/Stock/INDIA/BSE/{name}.csv"
-                price = " RS"
-                symbol="₹ "
-
+                  
+            if exchange=="NSE":
+                path = f"Stock/INDIA/NSE/{name}.csv"
+            elif exchange=="BSE":
+                path = f"Stock/INDIA/BSE/{name}.csv"
+            price = " RS"
+            symbol="₹ "
+    
         elif country == "USA":
-            path = f"D:/Stock/Stock/US/{name}.csv"
+            path = f"Stock/US/{name}.csv"
             price=" Doller"
             symbol ="$ "
-
+    
         elif country == "Japan":
-            path = f"D:/Stock/Stock/Japan/{name}.csv"
+            path = f"Stock/Japan/{name}.csv"
             price=" Yen"
             symbol="¥ "
         
