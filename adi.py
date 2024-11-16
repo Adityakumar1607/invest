@@ -8,7 +8,7 @@ import datetime
 import warnings
 warnings.filterwarnings('ignore')
 
-def bb(country,exchange,name,initialCapital,indicator,window,type,start,end,volume):
+def bb(country,exchange,name,initialCapital,indicator,window,type,start,end,volume,hodl):
     if country== "India":
               
         if exchange=="NSE":
@@ -43,11 +43,16 @@ def bb(country,exchange,name,initialCapital,indicator,window,type,start,end,volu
         elif volume.strip().lower()=="false":
             volume = False
 
+        if hodl.strip().lower()=="true":
+            hodl = True
+        elif hodl.strip().lower()=="false":
+            hodl = False
+
         if starting not in data['Date'].dt.normalize().values:
-            print("starting date is invalid")
+            st.write("starting date is invalid")
 
         elif ending not in data['Date'].dt.normalize().values:
-            print("ending date is invalid")
+            st.write("ending date is invalid")
 
         elif starting<ending:
             if indicator == "Bollinger Band" :
@@ -79,12 +84,12 @@ def bb(country,exchange,name,initialCapital,indicator,window,type,start,end,volu
                         shearToBuy = capital//ClosePrise
                         capital -= shearToBuy*ClosePrise
                         holding += shearToBuy
-                        tradeHistory.append((row['Date'],"Buy",ClosePrise,holding))
+                        tradeHistory.append((row['Date'],"Buy",ClosePrise,holding,capital))
 
 
                     elif (ClosePrise > row['ubb']*sell) and holding >0:
                         capital += holding*ClosePrise
-                        tradeHistory.append((row['Date'],"Sell",ClosePrise,holding))
+                        tradeHistory.append((row['Date'],"Sell",ClosePrise,holding,capital))
                         holding = 0
 
                 portfolio = capital + (holding * data.iloc[-1]['Close'])
@@ -123,9 +128,22 @@ def bb(country,exchange,name,initialCapital,indicator,window,type,start,end,volu
                         addplot=[buy_plot, sell_plot],
                         returnfig=True) 
                 st.pyplot(fig1)              
-                st.pyplot(fig2)
+                if hodl:
+                    remcap = tradeHistory[0][4]
+                    p = tradeHistory[0][2]
+                    d = data.iloc[-1]['Close']
+                    h = tradeHistory[0][3]
+                    v = (d*h)-(p*h)
+                    cap= v+remcap
+                    nk=cap-initialCapital
+                    return f"If you hold the stock of {name} without making any trade on the investment: {symbol}{initialCapital} you will get:{symbol} {cap:.2f} and your net position will be: {symbol}{nk:.2f}"
 
-                return f"The stock {name} with the initial capital: {symbol}{initialCapital} and the indicator: {indicator} the portfolio is :{symbol}{portfolio:.2f} and the net position is :{symbol}{netPosition:.2f}"
+
+                
+                else:                    
+                    st.pyplot(fig2)
+                    return f"The stock {name} with the initial capital: {symbol}{initialCapital} and the indicator: {indicator} the portfolio is :{symbol}{portfolio:.2f} and the net position is :{symbol}{netPosition:.2f}"
+            
             if indicator == "RSI" :
                 data = data[(data['Date']>=starting)&(data['Date']<=ending)]
                 data['RSI'] = ta.momentum.rsi(data['Close'], window = window,)
@@ -153,11 +171,11 @@ def bb(country,exchange,name,initialCapital,indicator,window,type,start,end,volu
                         shares_to_buy = capital // ClosePrise
                         capital -= shares_to_buy * ClosePrise
                         holding += shares_to_buy
-                        trade_history.append((row['Date'], 'Buy', ClosePrise, holding))
+                        trade_history.append((row['Date'], 'Buy', ClosePrise, holding,capital))
                     
                     elif(row['RSI']>sell) and holding>0:
                         capital += holding * ClosePrise
-                        trade_history.append((row['Date'], 'Sell', ClosePrise, holding))
+                        trade_history.append((row['Date'], 'Sell', ClosePrise, holding,capital))
                         holding = 0
                     
 
@@ -195,9 +213,22 @@ def bb(country,exchange,name,initialCapital,indicator,window,type,start,end,volu
                         addplot=[buy_plot, sell_plot],
                         returnfig=True) 
                 st.pyplot(fig1)              
-                st.pyplot(fig2)
+                if hodl:
+                    remcap = tradeHistory[0][4]
+                    p = tradeHistory[0][2]
+                    d = data.iloc[-1]['Close']
+                    h = tradeHistory[0][3]
+                    v = (d*h)-(p*h)
+                    cap= v+remcap
+                    nk=cap-initialCapital
+                    return f"If you hold the stock of {name} without making any trade on the investment: {symbol}{initialCapital} you will get:{symbol} {cap:.2f} and your net position will be: {symbol}{nk:.2f}"
 
-                return f"The stock {name} with the initial capital: {symbol}{initialCapital} and the indicator: {indicator} the portfolio is :{symbol}{portfolio:.2f} and the net position is :{symbol}{netPosition:.2f}"
+
+                
+                else:                    
+                    st.pyplot(fig2)
+                    return f"The stock {name} with the initial capital: {symbol}{initialCapital} and the indicator: {indicator} the portfolio is :{symbol}{portfolio:.2f} and the net position is :{symbol}{netPosition:.2f}"
+
             if indicator=="VWAP":
                 data = data[(data['Date']>=starting)&(data['Date']<=ending)]
                 data['VWAP'] = ta.volume.volume_weighted_average_price(data['High'],data['Low'],data['Close'],data['Volume'],window=window)
@@ -225,11 +256,11 @@ def bb(country,exchange,name,initialCapital,indicator,window,type,start,end,volu
                         shares_to_buy = capital // ClosePrise
                         capital -= shares_to_buy * ClosePrise
                         holding += shares_to_buy
-                        trade_history.append((row['Date'], 'Buy', ClosePrise, holding))
+                        trade_history.append((row['Date'], 'Buy', ClosePrise, holding,capital))
                     
                     elif(ClosePrise>row['VWAP']*sell) and holding>0:
                         capital += holding * ClosePrise
-                        trade_history.append((row['Date'], 'Sell', ClosePrise, holding))
+                        trade_history.append((row['Date'], 'Sell', ClosePrise, holding,capital))
                         holding = 0
                     
 
@@ -267,10 +298,19 @@ def bb(country,exchange,name,initialCapital,indicator,window,type,start,end,volu
                         addplot=[buy_plot, sell_plot],
                         returnfig=True) 
                 st.pyplot(fig1)              
-                st.pyplot(fig2)
+                if hodl:
+                    remcap = tradeHistory[0][4]
+                    p = tradeHistory[0][2]
+                    d = data.iloc[-1]['Close']
+                    h = tradeHistory[0][3]
+                    v = (d*h)-(p*h)
+                    cap= v+remcap
+                    nk=cap-initialCapital
+                    return f"If you hold the stock of {name} without making any trade on the investment: {symbol}{initialCapital} you will get:{symbol} {cap:.2f} and your net position will be: {symbol}{nk:.2f}"
 
-                return f"The stock {name} with the initial capital: {symbol}{initialCapital} and the indicator: {indicator} the portfolio is :{symbol}{portfolio:.2f} and the net position is :{symbol}{netPosition:.2f}"
-
+                else:                    
+                    st.pyplot(fig2)
+                    return f"The stock {name} with the initial capital: {symbol}{initialCapital} and the indicator: {indicator} the portfolio is :{symbol}{portfolio:.2f} and the net position is :{symbol}{netPosition:.2f}"
     
         elif starting>ending:
             print(f"{starting} date is greater then {ending} date")
@@ -309,10 +349,12 @@ risk_type = st.sidebar.selectbox("Select risk type", ["aggressive", "moderate", 
 start_date = st.sidebar.date_input("Select start date",min_value=min_date, max_value=max_date)
 end_date = st.sidebar.date_input("Select end date",min_value=min_date, max_value=max_date)
 volume = st.sidebar.selectbox("Show volume?", ["True", "False"])
+hodl = st.sidebar.selectbox("Want to hold without trade ?", ["True", "False"])
+
 
 # Trigger analysis
 if st.sidebar.button("Run Analysis"):
-    result = bb(country,exchange,stock_name, initial_capital, indicator, window, risk_type, start_date, end_date, volume)
+    result = bb(country,exchange,stock_name, initial_capital, indicator, window, risk_type, start_date, end_date, volume,hodl)
     st.write(result)   
 # name = input("Enter stock name: ")
 # capital = int(input("Enter initial capital: "))
