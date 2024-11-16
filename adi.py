@@ -433,12 +433,12 @@ elif action == "No":
                     portfolioValue = sharesCanBuy * sellClosePrice + remainingCapital
                     netPosition = portfolioValue - capital
 
-                    return (f"You can buy {sharesCanBuy} shares of {name} at ₹{buyClosePrice:.2f} each. "
-                            f"Your portfolio value at the end will be ₹{portfolioValue:.2f}, "
-                            f"with a net position of ₹{netPosition:.2f}.")
+                    return (f"You can buy {sharesCanBuy} shares of {name} at {symbol}{buyClosePrice:.2f} each. "
+                            f"Your portfolio value at the end will be {symbol}{portfolioValue:.2f}, "
+                            f"with a net position of {symbol}{netPosition:.2f}.")
                 else:
-                    return (f"Your initial capital (₹{capital:.2f}) is lower than the stock's opening price "
-                            f"(₹{buyClosePrice:.2f}). Unable to buy any shares.")
+                    return (f"Your initial capital ({symbol}{capital:.2f}) is lower than the stock's opening price "
+                            f"({symbol}{buyClosePrice:.2f}). Unable to buy any shares.")
             else:
                 return f"Error: Starting date ({starting}) is greater than ending date ({ending})."
         else:
@@ -465,7 +465,7 @@ elif action == "No":
         stock_name = st.sidebar.selectbox("Enter stock name",['7201.T - Nissan', '7202.T - Isuzu Motors', '7203.T - Toyota', '7205.T - Hino Motors', '7211.T - Mitsubishi Motors', '7261.T - Mazda', '7267.T - Honda', '7269.T - Suzuki', '7270.T - Subaru', '8015.T - Toyota Tsusho'])
         exchange =  None
     
-    capital = st.sidebar.number_input("Enter initial capital (₹):", min_value=1, value=1000)
+    capital = st.sidebar.number_input("Enter initial capital :", min_value=1, value=1000)
     start_date = st.sidebar.date_input("Select start date",min_value=min_date, max_value=max_date)
     end_date = st.sidebar.date_input("Select end date",min_value=min_date, max_value=max_date)
 
