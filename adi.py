@@ -8,7 +8,7 @@ import datetime
 import warnings
 warnings.filterwarnings('ignore')
 
-def bb(country,exchange,name,initialCapital,indicator,window,type,start,end,volume,hodl):
+def bb(country,exchange,name,initialCapital,indicator,window,type,start,end,volume):
     if country== "India":
               
         if exchange=="NSE":
@@ -28,6 +28,7 @@ def bb(country,exchange,name,initialCapital,indicator,window,type,start,end,volu
         price=" Yen"
         symbol="¥ "
     
+
     else:
         print("Select a valid country")
     if os.path.exists(path):
@@ -41,12 +42,7 @@ def bb(country,exchange,name,initialCapital,indicator,window,type,start,end,volu
             volume = True
         elif volume.strip().lower()=="false":
             volume = False
-            
-        if hodl.strip().lower()=="true":
-            hodl = True
-        elif hodl.strip().lower()=="false":
-            hodl = False
-            
+
         if starting not in data['Date'].dt.normalize().values:
             print("starting date is invalid")
 
@@ -126,19 +122,10 @@ def bb(country,exchange,name,initialCapital,indicator,window,type,start,end,volu
                         volume=volume,
                         addplot=[buy_plot, sell_plot],
                         returnfig=True) 
-                st.pyplot(fig1)    
+                st.pyplot(fig1)              
+                st.pyplot(fig2)
 
-                if hodl:
-                    p = tradeHistory[0][2]
-                    d = data.iloc[-1]['Close']
-                    h = tradeHistory[0][3]
-                    v = (d*h)-(p*h)
-                    return f"{v} is the value if you hold the stock"
-                
-                else:                    
-                    st.pyplot(fig2)
-                    return f"The stock {name} with the initial capital: {symbol}{initialCapital} and the indicator: {indicator} the portfolio is :{symbol}{portfolio:.2f} and the net position is :{symbol}{netPosition:.2f}"
-
+                return f"The stock {name} with the initial capital: {symbol}{initialCapital} and the indicator: {indicator} the portfolio is :{symbol}{portfolio:.2f} and the net position is :{symbol}{netPosition:.2f}"
             if indicator == "RSI" :
                 data = data[(data['Date']>=starting)&(data['Date']<=ending)]
                 data['RSI'] = ta.momentum.rsi(data['Close'], window = window,)
@@ -208,19 +195,9 @@ def bb(country,exchange,name,initialCapital,indicator,window,type,start,end,volu
                         addplot=[buy_plot, sell_plot],
                         returnfig=True) 
                 st.pyplot(fig1)              
-                
-                if hodl:
-                    p = tradeHistory[0][2]
-                    d = data.iloc[-1]['Close']
-                    h = tradeHistory[0][3]
-                    v = (d*h)-(p*h)
-                    return f"{v} is the value if you hold the stock"
-                
-                else:                    
-                    st.pyplot(fig2)
-                    return f"The stock {name} with the initial capital: {symbol}{initialCapital} and the indicator: {indicator} the portfolio is :{symbol}{portfolio:.2f} and the net position is :{symbol}{netPosition:.2f}"
+                st.pyplot(fig2)
 
-
+                return f"The stock {name} with the initial capital: {symbol}{initialCapital} and the indicator: {indicator} the portfolio is :{symbol}{portfolio:.2f} and the net position is :{symbol}{netPosition:.2f}"
             if indicator=="VWAP":
                 data = data[(data['Date']>=starting)&(data['Date']<=ending)]
                 data['VWAP'] = ta.volume.volume_weighted_average_price(data['High'],data['Low'],data['Close'],data['Volume'],window=window)
@@ -290,17 +267,9 @@ def bb(country,exchange,name,initialCapital,indicator,window,type,start,end,volu
                         addplot=[buy_plot, sell_plot],
                         returnfig=True) 
                 st.pyplot(fig1)              
+                st.pyplot(fig2)
 
-                if hodl:
-                    p = tradeHistory[0][2]
-                    d = data.iloc[-1]['Close']
-                    h = tradeHistory[0][3]
-                    v = (d*h)-(p*h)
-                    return f"{v} is the value if you hold the stock"
-                
-                else:                    
-                    st.pyplot(fig2)
-                    return f"The stock {name} with the initial capital: {symbol}{initialCapital} and the indicator: {indicator} the portfolio is :{symbol}{portfolio:.2f} and the net position is :{symbol}{netPosition:.2f}"
+                return f"The stock {name} with the initial capital: {symbol}{initialCapital} and the indicator: {indicator} the portfolio is :{symbol}{portfolio:.2f} and the net position is :{symbol}{netPosition:.2f}"
 
     
         elif starting>ending:
@@ -309,8 +278,8 @@ def bb(country,exchange,name,initialCapital,indicator,window,type,start,end,volu
     else:
         return f"{path} didn't exist"
     
-min_date = datetime.date(2010,1,1)
-max_date = datetime.date(2024,11,11)
+min_date = datetime.date(2013, 1, 1)
+max_date = datetime.date(2023, 12, 31)
 
 st.title("Stock Analysis with Bollinger Bands")
 st.sidebar.header("Input Parameters")
@@ -335,16 +304,15 @@ else:
 
 initial_capital = st.sidebar.number_input("Enter initial capital", min_value=0, value=100000)
 indicator = st.sidebar.selectbox("Select indicator", ['Bollinger Band','RSI','VWAP'])
-window = st.sidebar.number_input("Enter window size", min_value=16,max_value=100,value =50)
+window = st.sidebar.number_input("Enter window size", min_value=16, value=50)
 risk_type = st.sidebar.selectbox("Select risk type", ["aggressive", "moderate", "low"])
 start_date = st.sidebar.date_input("Select start date",min_value=min_date, max_value=max_date)
 end_date = st.sidebar.date_input("Select end date",min_value=min_date, max_value=max_date)
 volume = st.sidebar.selectbox("Show volume?", ["True", "False"])
-hodl = st.sidebar.selectbox("Want to hodl?", ["True", "False"])
 
 # Trigger analysis
 if st.sidebar.button("Run Analysis"):
-    result = bb(country,exchange,stock_name, initial_capital, indicator, window, risk_type, start_date, end_date, volume, hodl)
+    result = bb(country,exchange,stock_name, initial_capital, indicator, window, risk_type, start_date, end_date, volume)
     st.write(result)   
 # name = input("Enter stock name: ")
 # capital = int(input("Enter initial capital: "))
