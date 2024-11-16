@@ -365,7 +365,8 @@ if action == "Yes":
     # Trigger analysis
     if st.sidebar.button("Run Analysis"):
         result = bb(country,exchange,stock_name, initial_capital, indicator, window, risk_type, start_date, end_date, volume,hodl)
-        st.write(result)   
+        if result:
+            st.write(result)    
 
 elif action == "No":
     def portfolio(country,exchange,name, capital, starting, ending):
