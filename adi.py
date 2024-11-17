@@ -365,7 +365,7 @@ if action == "Yes":
     initial_capital = st.sidebar.number_input("Enter initial capital", min_value=0, value=100000)
     indicator = st.sidebar.selectbox("Select indicator", ['Bollinger Band','RSI','VWAP'])
     window = st.sidebar.number_input("Enter window size", min_value=16,max_value=100,value =50)
-    risk_type = st.sidebar.selectbox("Select risk type", ["Aggressive", "Moderate", "Low"])
+    risk_type = st.sidebar.selectbox("Select risk type", ["Low","Moderate","Aggressive"])
     start_date = st.sidebar.date_input("Select start date",min_value=min_date, max_value=max_date)
     end_date = st.sidebar.date_input("Select end date",min_value=min_date, max_value=max_date)
     volume = st.sidebar.selectbox("Show volume?", ["True", "False"])
