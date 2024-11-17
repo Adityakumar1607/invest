@@ -56,10 +56,10 @@ if action == "Yes":
             elif volume.strip().lower()=="false":
                 volume = False
                 
-            if hodl.strip().lower()=="true":
-                hodl = True
-            elif hodl.strip().lower()=="false":
-                hodl = False
+            if hold.strip().lower()=="true":
+                hold = True
+            elif hold.strip().lower()=="false":
+                hold = False
                 
             if starting not in data['Date'].dt.normalize().values:
                 st.error("starting date is invalid")
@@ -373,7 +373,7 @@ if action == "Yes":
 
     # Trigger analysis
     if st.sidebar.button("Run Analysis"):
-        result = bb(country,exchange,stock_name, initial_capital, indicator, window, risk_type, start_date, end_date, volume, hodl)
+        result = bb(country,exchange,stock_name, initial_capital, indicator, window, risk_type, start_date, end_date, volume, hold)
         st.write(result)   
 
 
