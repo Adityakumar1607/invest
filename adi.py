@@ -135,7 +135,7 @@ if action == "Yes":
                     fig2,ax=mpf.plot(data.set_index('Date'),
                             type='candle',
                             style='charles',
-                            title='Bollenger Band long position on the chart',
+                            title='Bollinger Band long position on the chart',
                             ylabel=f'Price {price}',
                             volume=volume,
                             addplot=[buy_plot, sell_plot],
