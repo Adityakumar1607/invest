@@ -141,22 +141,24 @@ if action == "Yes":
                             addplot=[buy_plot, sell_plot],
                             returnfig=True) 
                     st.pyplot(fig1)    
-
-                    if hold:
-                        remcap = tradeHistory[0][4]
-                        p = tradeHistory[0][2]
-                        d = data.iloc[-1]['Close']
-                        h = tradeHistory[0][3]
-                        v = (d*h)-(p*h)
-                        cap= v+remcap
-                        nk=cap-initialCapital
-                        return f"If you hold the stock of {name} without making any trade on the investment: {symbol}{initialCapital} you will get:{symbol} {cap:.2f} and your net position will be: {symbol}{nk:.2f}."
-
-
-                    
-                    else:                    
-                        st.pyplot(fig2)
-                        return f"The stock {name} with the initial capital: {symbol}{initialCapital} and the indicator: {indicator} the portfolio is :{symbol}{portfolio:.2f} and the net position is :{symbol}{netPosition:.2f}."
+                    if not tradeHistory:
+                        return "No trade is happend"
+                    else:
+                        if hold:
+                            remcap = tradeHistory[0][4]
+                            p = tradeHistory[0][2]
+                            d = data.iloc[-1]['Close']
+                            h = tradeHistory[0][3]
+                            v = (d*h)-(p*h)
+                            cap= v+remcap
+                            nk=cap-initialCapital
+                            return f"If you hold the stock of {name} without making any trade on the investment: {symbol}{initialCapital} you will get:{symbol} {cap:.2f} and your net position will be: {symbol}{nk:.2f}."
+    
+    
+                        
+                        else:                    
+                            st.pyplot(fig2)
+                            return f"The stock {name} with the initial capital: {symbol}{initialCapital} and the indicator: {indicator} the portfolio is :{symbol}{portfolio:.2f} and the net position is :{symbol}{netPosition:.2f}."
 
                 if indicator == "RSI" :
                     data = data[(data['Date']>=starting)&(data['Date']<=ending)]
@@ -176,7 +178,7 @@ if action == "Yes":
 
                     capital = initialCapital
                     holding = 0
-                    trade_history = []
+                    tradeHistory = []
 
                     for index, row in data.iterrows():
                         ClosePrise=row['Close']
@@ -185,11 +187,11 @@ if action == "Yes":
                             shares_to_buy = capital // ClosePrise
                             capital -= shares_to_buy * ClosePrise
                             holding += shares_to_buy
-                            trade_history.append((row['Date'], 'Buy', ClosePrise,holding,capital))
+                            tradeHistory.append((row['Date'], 'Buy', ClosePrise,holding,capital))
                         
                         elif(row['RSI']>sell) and holding>0:
                             capital += holding * ClosePrise
-                            trade_history.append((row['Date'], 'Sell', ClosePrise,holding,capital))
+                            tradeHistory.append((row['Date'], 'Sell', ClosePrise,holding,capital))
                             holding = 0
                         
 
@@ -208,7 +210,7 @@ if action == "Yes":
                     sell_yvalues = np.nan * np.ones(len(data))
 
                     for i, date in enumerate(data['Date']):
-                        for t in trade_history:
+                        for t in tradeHistory:
                             if t[0]  == date and t[1] =="Buy":
                                 buy_yvalues[data['Date'] == date] = t[2]
 
@@ -227,23 +229,25 @@ if action == "Yes":
                             addplot=[buy_plot, sell_plot],
                             returnfig=True) 
                     st.pyplot(fig1)              
-                    
-                    if hold:
-                        remcap = tradeHistory[0][4]
-                        p = tradeHistory[0][2]
-                        d = data.iloc[-1]['Close']
-                        h = tradeHistory[0][3]
-                        v = (d*h)-(p*h)
-                        cap= v+remcap
-                        nk=cap-initialCapital
-                        return f"If you hold the stock of {name} without making any trade on the investment: {symbol}{initialCapital} you will get:{symbol} {cap:.2f} and your net position will be: {symbol}{nk:.2f}"
-
-        
-                    
+                    if not tradeHistory:
+                        return "No trade is happend"
                     else:                    
-                        st.pyplot(fig2)
-                        return f"The stock {name} with the initial capital: {symbol}{initialCapital} and the indicator: {indicator} the portfolio is :{symbol}{portfolio:.2f} and the net position is :{symbol}{netPosition:.2f}"
-
+                        if hold:
+                            remcap = tradeHistory[0][4]
+                            p = tradeHistory[0][2]
+                            d = data.iloc[-1]['Close']
+                            h = tradeHistory[0][3]
+                            v = (d*h)-(p*h)
+                            cap= v+remcap
+                            nk=cap-initialCapital
+                            return f"If you hold the stock of {name} without making any trade on the investment: {symbol}{initialCapital} you will get:{symbol} {cap:.2f} and your net position will be: {symbol}{nk:.2f}"
+    
+            
+                        
+                        else:                    
+                            st.pyplot(fig2)
+                            return f"The stock {name} with the initial capital: {symbol}{initialCapital} and the indicator: {indicator} the portfolio is :{symbol}{portfolio:.2f} and the net position is :{symbol}{netPosition:.2f}"
+    
 
                 if indicator=="VWAP":
                     data = data[(data['Date']>=starting)&(data['Date']<=ending)]
@@ -263,7 +267,7 @@ if action == "Yes":
 
                     capital = initialCapital
                     holding = 0
-                    trade_history = []
+                    tradeHistory = []
 
                     for index, row in data.iterrows():
                         ClosePrise=row['Close']
@@ -272,11 +276,11 @@ if action == "Yes":
                             shares_to_buy = capital // ClosePrise
                             capital -= shares_to_buy * ClosePrise
                             holding += shares_to_buy
-                            trade_history.append((row['Date'], 'Buy', ClosePrise,holding,capital))
+                            tradeHistory.append((row['Date'], 'Buy', ClosePrise,holding,capital))
                         
                         elif(ClosePrise>row['VWAP']*sell) and holding>0:
                             capital += holding * ClosePrise
-                            trade_history.append((row['Date'], 'Sell', ClosePrise,holding,capital))
+                            tradeHistory.append((row['Date'], 'Sell', ClosePrise,holding,capital))
                             holding = 0
                         
 
@@ -295,7 +299,7 @@ if action == "Yes":
                     sell_yvalues = np.nan * np.ones(len(data))
 
                     for i, date in enumerate(data['Date']):
-                        for t in trade_history:
+                        for t in tradeHistory:
                             if t[0]  == date and t[1] =="Buy":
                                 buy_yvalues[data['Date'] == date] = t[2]
 
@@ -314,22 +318,24 @@ if action == "Yes":
                             addplot=[buy_plot, sell_plot],
                             returnfig=True) 
                     st.pyplot(fig1)              
-
-                    if hold:
-                        remcap = tradeHistory[0][4]
-                        p = tradeHistory[0][2]
-                        d = data.iloc[-1]['Close']
-                        h = tradeHistory[0][3]
-                        v = (d*h)-(p*h)
-                        cap= v+remcap
-                        nk=cap-initialCapital
-                        return f"If you hold the stock of {name} without making any trade on the investment: {symbol}{initialCapital} you will get:{symbol} {cap:.2f} and your net position will be: {symbol}{nk:.2f}"
-
-
-                    
-                    else:                    
-                        st.pyplot(fig2)
-                        return f"The stock {name} with the initial capital: {symbol}{initialCapital} and the indicator: {indicator} the portfolio is :{symbol}{portfolio:.2f} and the net position is :{symbol}{netPosition:.2f}"
+                    if not tradeHistory:
+                        return "No trade is happend"
+                    else:
+                        if hold:
+                            remcap = tradeHistory[0][4]
+                            p = tradeHistory[0][2]
+                            d = data.iloc[-1]['Close']
+                            h = tradeHistory[0][3]
+                            v = (d*h)-(p*h)
+                            cap= v+remcap
+                            nk=cap-initialCapital
+                            return f"If you hold the stock of {name} without making any trade on the investment: {symbol}{initialCapital} you will get:{symbol} {cap:.2f} and your net position will be: {symbol}{nk:.2f}"
+    
+    
+                        
+                        else:                    
+                            st.pyplot(fig2)
+                            return f"The stock {name} with the initial capital: {symbol}{initialCapital} and the indicator: {indicator} the portfolio is :{symbol}{portfolio:.2f} and the net position is :{symbol}{netPosition:.2f}"
 
         
             elif starting>ending:
