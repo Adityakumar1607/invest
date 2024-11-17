@@ -369,7 +369,7 @@ if action == "Yes":
     start_date = st.sidebar.date_input("Select start date",min_value=min_date, max_value=max_date)
     end_date = st.sidebar.date_input("Select end date",min_value=min_date, max_value=max_date)
     volume = st.sidebar.selectbox("Show volume?", ["True", "False"])
-    hodl = st.sidebar.selectbox("Want to hodl?", ["True", "False"])
+    hodl = st.sidebar.selectbox("Want to hold?", ["True", "False"])
 
     # Trigger analysis
     if st.sidebar.button("Run Analysis"):
