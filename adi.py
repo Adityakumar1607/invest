@@ -56,10 +56,10 @@ if action == "Yes":
             elif volume.strip().lower()=="false":
                 volume = False
                 
-            if hold.strip().lower()=="true":
-                hold = True
-            elif hold.strip().lower()=="false":
-                hold = False
+            if hodl.strip().lower()=="true":
+                hodl = True
+            elif hodl.strip().lower()=="false":
+                hodl = False
                 
             if starting not in data['Date'].dt.normalize().values:
                 st.error("starting date is invalid")
