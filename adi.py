@@ -20,7 +20,7 @@ action = st.sidebar.radio("Select an option:", choices, index=1)
 
 if action == "Yes":
 
-    def bb(country,exchange,name,initialCapital,indicator,window,type,start,end,volume,hodl):
+    def bb(country,exchange,name,initialCapital,indicator,window,type,start,end,volume,hold):
         if country== "India":
                   
             if exchange=="NSE":
@@ -56,10 +56,10 @@ if action == "Yes":
             elif volume.strip().lower()=="false":
                 volume = False
                 
-            if hodl.strip().lower()=="true":
-                hodl = True
-            elif hodl.strip().lower()=="false":
-                hodl = False
+            if hold.strip().lower()=="true":
+                hold = True
+            elif hold.strip().lower()=="false":
+                hold = False
                 
             if starting not in data['Date'].dt.normalize().values:
                 st.error("starting date is invalid")
@@ -142,7 +142,7 @@ if action == "Yes":
                             returnfig=True) 
                     st.pyplot(fig1)    
 
-                    if hodl:
+                    if hold:
                         remcap = tradeHistory[0][4]
                         p = tradeHistory[0][2]
                         d = data.iloc[-1]['Close']
@@ -228,7 +228,7 @@ if action == "Yes":
                             returnfig=True) 
                     st.pyplot(fig1)              
                     
-                    if hodl:
+                    if hold:
                         remcap = tradeHistory[0][4]
                         p = tradeHistory[0][2]
                         d = data.iloc[-1]['Close']
@@ -315,7 +315,7 @@ if action == "Yes":
                             returnfig=True) 
                     st.pyplot(fig1)              
 
-                    if hodl:
+                    if hold:
                         remcap = tradeHistory[0][4]
                         p = tradeHistory[0][2]
                         d = data.iloc[-1]['Close']
@@ -369,7 +369,7 @@ if action == "Yes":
     start_date = st.sidebar.date_input("Select start date",min_value=min_date, max_value=max_date)
     end_date = st.sidebar.date_input("Select end date",min_value=min_date, max_value=max_date)
     volume = st.sidebar.selectbox("Show volume?", ["True", "False"])
-    hodl = st.sidebar.selectbox("Want to hold?", ["True", "False"])
+    hold = st.sidebar.selectbox("Want to hold?", ["True", "False"])
 
     # Trigger analysis
     if st.sidebar.button("Run Analysis"):
