@@ -20,7 +20,7 @@ action = st.sidebar.radio("Select an option:", choices, index=1)
 
 if action == "Yes":
 
-    def bb(country,exchange,name,initialCapital,indicator,window,type,start,end,volume,hold):
+    def bb(country,exchange,name,initialCapital,indicator,window,type,start,end,volume,hodl):
         if country== "India":
                   
             if exchange=="NSE":
