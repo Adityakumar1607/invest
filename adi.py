@@ -10,7 +10,7 @@ import warnings
 warnings.filterwarnings('ignore')
 
 st.title('Stock Analysis')
-st.sidebar.title("Do you ant to use indicator")
+st.sidebar.title("Do you want to use indicator")
 
 # Define choices for the radio button
 choices = ["Yes","No"]
@@ -20,7 +20,7 @@ action = st.sidebar.radio("Select an option:", choices, index=1)
 
 if action == "Yes":
 
-    def bb(country,exchange,name,initialCapital,indicator,window,type,start,end,volume,hodl):
+    def bb(country,exchange,name,initial capital,indicator,window,type,start,end,volume,hold):
         if country== "India":
                   
             if exchange=="NSE":
@@ -74,11 +74,11 @@ if action == "Yes":
                     data['ubb'] = ta.volatility.bollinger_hband(data['Close'],window=window,window_dev=2)
                     data['lbb'] = ta.volatility.bollinger_lband(data['Close'],window=window,window_dev=2)
 
-                    if type == "aggressive":
+                    if type == "Aggressive":
                         buy = 0.95
                         sell = 1.05
 
-                    elif type == "moderate":
+                    elif type == "Moderate":
                         buy = 0.98
                         sell = 1.02
 
@@ -162,11 +162,11 @@ if action == "Yes":
                     data = data[(data['Date']>=starting)&(data['Date']<=ending)]
                     data['RSI'] = ta.momentum.rsi(data['Close'], window = window,)
                     
-                    if type == "aggressive":
+                    if type == "Aggressive":
                         buy = 30
                         sell = 80
 
-                    elif type == "moderate":
+                    elif type == "Moderate":
                         buy = 25
                         sell = 75
 
@@ -248,11 +248,11 @@ if action == "Yes":
                 if indicator=="VWAP":
                     data = data[(data['Date']>=starting)&(data['Date']<=ending)]
                     data['VWAP'] = ta.volume.volume_weighted_average_price(data['High'],data['Low'],data['Close'],data['Volume'],window=window)
-                    if type == "aggressive":
+                    if type == "Aggressive":
                             buy = 0.98
                             sell = 1.04
 
-                    elif type == "moderate":
+                    elif type == "Moderate":
                         buy = 0.96
                         sell = 1.03
 
@@ -365,7 +365,7 @@ if action == "Yes":
     initial_capital = st.sidebar.number_input("Enter initial capital", min_value=0, value=100000)
     indicator = st.sidebar.selectbox("Select indicator", ['Bollinger Band','RSI','VWAP'])
     window = st.sidebar.number_input("Enter window size", min_value=16,max_value=100,value =50)
-    risk_type = st.sidebar.selectbox("Select risk type", ["aggressive", "moderate", "low"])
+    risk_type = st.sidebar.selectbox("Select risk type", ["Aggressive", "Moderate", "Low"])
     start_date = st.sidebar.date_input("Select start date",min_value=min_date, max_value=max_date)
     end_date = st.sidebar.date_input("Select end date",min_value=min_date, max_value=max_date)
     volume = st.sidebar.selectbox("Show volume?", ["True", "False"])
@@ -449,7 +449,7 @@ elif action == "No":
     country = st.sidebar.selectbox("Select the country",["India","USA","Japan"])
     if country == "India":
         
-        exchange = st.sidebar.selectbox ("Sekect an exchange",["NSE","BSE"])
+        exchange = st.sidebar.selectbox ("Select an exchange",["NSE","BSE"])
         if exchange == "NSE":
             stock_name = st.sidebar.selectbox("Enter stock name",['APOLLO TYRE', 'ASHOK LEYLAND', 'ATUL AUTO', 'BAJAJ AUTO', 'BOSCH', 'CEAT TYRES', 'EICHER MOTORS', 'ESCORTS MOTORS', 'EXIDE IND', 'FORCE MOTORS', 'HERO MOTO CORP', 'JK TYRE', 'Mahindra & Mahindra', 'MARUTI', 'MRF TYRES', 'SML ISUZU', 'SONA COMSTAR', 'TATA MOTORS', 'TATA POWER', 'TVS MOTORS'] )
         elif exchange == "BSE":
