@@ -10,7 +10,7 @@ import warnings
 warnings.filterwarnings('ignore')
 
 st.title('Stock Analysis')
-st.sidebar.title("Do you want to use indicator")
+st.sidebar.title("Do you want to use Indicator?")
 
 # Define choices for the radio button
 choices = ["Yes","No"]
